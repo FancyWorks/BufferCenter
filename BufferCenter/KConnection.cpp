@@ -69,7 +69,7 @@ void KConnection::FetchData(void *params)
 
 	conn->sin.sin_family = AF_INET;
 	conn->sin.sin_addr.S_un.S_addr = inet_addr(conn->m_szIP);
-	conn->sin.sin_port = htons(conn->m_dwPort);
+	conn->sin.sin_port = htons((u_short)conn->m_dwPort);
 
 	try {
 		conn->m_base = event_base_new();
@@ -113,7 +113,7 @@ void KConnection::FetchData(void *params)
 		bufferevent_write(conn->m_bev,(char*)&fetchMsgCountMessage.msg,REQUERST_SIZE);
 
 		//超时, 正常会在超时内完成数据的抽取
-		struct timeval delay = { gThreadTimeout/1000, gThreadTimeout%1000 };
+		struct timeval delay = { (long)gThreadTimeout/1000, (long)gThreadTimeout%1000 };
 		event_base_loopexit(conn->m_base, &delay);
 
 		event_base_dispatch(conn->m_base);

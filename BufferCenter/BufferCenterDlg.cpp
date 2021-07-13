@@ -111,7 +111,7 @@ BOOL CBufferCenterDlg::OnInitDialog()
 	// TODO: 在此添加额外的初始化代码
 
 	WSADATA wsa_data;
-	WSAStartup(0x0201, &wsa_data);
+	int wasResult = WSAStartup(0x0201, &wsa_data);
 	
 	UpdateData(FALSE);
 
